@@ -114,15 +114,15 @@ def main():
                                                 cfg.DATASETS.LABELMAP_FILE)
     assert dataset_labelmap_file
     dataset_allmap = json.load(open(dataset_labelmap_file, 'r'))
-    with open(op.join(output_dir, 'object_id.json')) as f:
+    with open(op.join(json_output_dir, 'object_id.json'), 'w') as f:
         json.dump(dataset_allmap['label_to_idx'], f)
 
-    with open(op.join(output_dir, 'attr_id.json')) as f:
+    with open(op.join(json_output_dir, 'attr_id.json'), 'w') as f:
         json.dump(dataset_allmap['attribute_to_idx'], f)
 
-    with open(op.join(output_dir, 'predicate_id.json')) as f:
+    with open(op.join(json_output_dir, 'predicate_id.json'), 'w') as f:
         json.dump(dataset_allmap['predicate_to_idx'], f)
-    with open(op.join(output_dir, 'rel_gqa.txt'), 'w') as f:
+    with open(op.join(json_output_dir, 'rel_gqa.txt'), 'w') as f:
         for i in range(len(dataset_allmap['idx_to_predicate'].keys()) + 1):
             if i in dataset_allmap['idx_to_predicate'].keys():
                 pred = dataset_allmap['idx_to_predicate'][i]
@@ -278,11 +278,11 @@ def main():
                     scene_graphs[img_id] = sg
                     concept[img_id] = concept_list
                     all_data[img_id] = data
-    with open(op.join(output_dir, 'train_sceneGraphs.json')) as f:
+    with open(op.join(json_output_dir, 'train_sceneGraphs.json'), 'w') as f:
         json.dump(scene_graphs, f)
-    with open(op.join(output_dir, 'images_objects.json')) as f:
+    with open(op.join(json_output_dir, 'images_objects.json'), 'w') as f:
         json.dump(concept, f)
-    with open(op.join(output_dir, 'image_info.json')) as f:
+    with open(op.join(json_output_dir, 'image_info.json'), 'w') as f:
         json.dump(all_data, f)
 
 

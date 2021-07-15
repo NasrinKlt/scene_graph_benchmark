@@ -114,9 +114,14 @@ def main():
                                                 cfg.DATASETS.LABELMAP_FILE)
     assert dataset_labelmap_file
     dataset_allmap = json.load(open(dataset_labelmap_file, 'r'))
-    json.dump(dataset_allmap['label_to_idx'], op.join(output_dir, 'object_id.json'))
-    json.dump(dataset_allmap['attribute_to_idx'], op.join(output_dir, 'attr_id.json'))
-    json.dump(dataset_allmap['predicate_to_idx'], op.join(output_dir, 'predicate_id.json'))
+    with open(op.join(output_dir, 'object_id.json')) as f:
+        json.dump(dataset_allmap['label_to_idx'], f)
+
+    with open(op.join(output_dir, 'attr_id.json')) as f:
+        json.dump(dataset_allmap['attribute_to_idx'], f)
+
+    with open(op.join(output_dir, 'predicate_id.json')) as f:
+        json.dump(dataset_allmap['predicate_to_idx'], f)
     with open(op.join(output_dir, 'rel_gqa.txt'), 'w') as f:
         for i in range(len(dataset_allmap['idx_to_predicate'].keys()) + 1):
             if i in dataset_allmap['idx_to_predicate'].keys():

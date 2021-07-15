@@ -165,7 +165,11 @@ def main():
                     sg["width"] = w
                     sg["height"] = h
                     objects = {}
-                    dets = detect_objects_on_single_image(model, transforms, cv2_img)
+                    try:
+                        dets = detect_objects_on_single_image(model, transforms, cv2_img)
+                    except:
+                        print(f'Error in predicting for {img_id}')
+                        continue
                     if isinstance(model, SceneParser):
                         rel_dets = dets['relations']
                         dets = dets['objects']
@@ -237,8 +241,6 @@ def main():
                     if cfg.MODEL.ATTRIBUTE_ON and args.visualize_attr:
                         attr_labels = [','.join(d["attr"]) for d in dets]
                         attr_scores = [d["attr_conf"] for d in dets]
-                        print(f'attr labels: {attr_labels}')
-                        print(f'attr scores: {attr_scores}')
                         labels = [attr_label+' '+d["class"]
                                   for d, attr_label in zip(dets, attr_labels)]
                     else:
@@ -258,7 +260,7 @@ def main():
                     else:
                         save_file = args.save_file
                     cv2.imwrite(save_file, cv2_img)
-                    print("save results to: {}".format(save_file))
+                    # print("save results to: {}".format(save_file))
 
                     # save results in text
                     if cfg.MODEL.ATTRIBUTE_ON and args.visualize_attr:
@@ -275,6 +277,7 @@ def main():
                     scene_graphs[img_id] = sg
                     concept[img_id] = concept_list
                     all_data[img_id] = data
+                    print(f'image {img_id} is done')
     with open(op.join(json_output_dir, 'train_sceneGraphs.json'), 'w') as f:
         json.dump(scene_graphs, f)
     with open(op.join(json_output_dir, 'images_objects.json'), 'w') as f:

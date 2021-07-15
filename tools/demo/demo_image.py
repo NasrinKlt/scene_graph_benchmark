@@ -273,9 +273,12 @@ def main():
                     scene_graphs[img_id] = sg
                     concept[img_id] = concept_list
                     all_data[img_id] = data
-    json.dump(scene_graphs, op.join(output_dir, 'train_sceneGraphs.json'))
-    json.dump(concept, op.join(output_dir, 'images_objects.json'))
-    json.dump(all_data, op.join(output_dir, 'image_info.json'))
+    with open(op.join(output_dir, 'train_sceneGraphs.json')) as f:
+        json.dump(scene_graphs, f)
+    with open(op.join(output_dir, 'images_objects.json')) as f:
+        json.dump(concept, f)
+    with open(op.join(output_dir, 'image_info.json')) as f:
+        json.dump(all_data, f)
 
 
 if __name__ == "__main__":

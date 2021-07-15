@@ -90,9 +90,6 @@ def main():
     cfg.merge_from_list(args.opts)
     cfg.freeze()
 
-    assert op.isfile(args.img_file), \
-        "Image: {} does not exist".format(args.img_file)
-
     output_dir = cfg.OUTPUT_DIR
     mkdir(output_dir)
 

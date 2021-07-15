@@ -1,4 +1,4 @@
-# Scene Graph Benchmark in PyTorch 1.7
+# Scene Graph Benchmark in PyTorch 1.7 for GCN
 
 **This project is based on [maskrcnn-benchmark](https://github.com/facebookresearch/maskrcnn-benchmark)**
 
